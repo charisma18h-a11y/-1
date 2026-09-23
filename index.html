@@ -38,6 +38,78 @@
             50% { background-position: 100% 100%; }
         }
 
+        /* شاشة الافتتاح */
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: #050806;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
+        .intro-screen::before {
+            content: "";
+            position: absolute;
+            inset: 15%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.16), transparent 65%);
+            filter: blur(18px);
+        }
+        .intro-screen.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .intro-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+            animation: introRise 0.9s ease both;
+        }
+        .intro-logo {
+            width: clamp(150px, 32vw, 220px);
+            height: clamp(150px, 32vw, 220px);
+            filter: drop-shadow(0 0 24px rgba(212, 175, 55, 0.48));
+            transform-style: preserve-3d;
+            animation: logoSpin 2.2s cubic-bezier(0.45, 0, 0.55, 1) both;
+        }
+        .intro-welcome {
+            margin: 0;
+            color: #f7e08a;
+            font-size: clamp(1.15rem, 3vw, 1.6rem);
+            font-weight: 800;
+            opacity: 0;
+            animation: welcomeIn 0.7s ease 1.65s forwards;
+        }
+        .intro-hint {
+            margin: 0;
+            color: rgba(209, 213, 219, 0.7);
+            font-size: 0.75rem;
+            opacity: 0;
+            animation: welcomeIn 0.7s ease 1.85s forwards;
+        }
+        @keyframes logoSpin {
+            0% { opacity: 0; transform: perspective(800px) rotateY(-180deg) scale(0.72); }
+            18% { opacity: 1; }
+            65% { transform: perspective(800px) rotateY(180deg) scale(1); }
+            100% { opacity: 1; transform: perspective(800px) rotateY(360deg) scale(1); }
+        }
+        @keyframes introRise {
+            from { transform: translateY(18px); }
+            to { transform: translateY(0); }
+        }
+        @keyframes welcomeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .intro-logo { animation: none; }
+            .intro-welcome, .intro-hint { animation: welcomeIn 0.2s ease forwards; }
+        }
         /* كروت المجموعات - تأثير الزجاج (Glassmorphism) */
         .group-card {
             background: rgba(16, 24, 19, 0.55);
