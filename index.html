@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجموعات مادة المهارات الجامعية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #05080a;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* خلفية متدرجة متحركة بدرجات داكنة وذهبية/برونزية خفيفة */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 18% 15%, rgba(212, 175, 55, 0.10), transparent 45%),
+                radial-gradient(circle at 85% 20%, rgba(180, 130, 60, 0.07), transparent 40%),
+                radial-gradient(circle at 80% 85%, rgba(46, 94, 66, 0.20), transparent 50%),
+                linear-gradient(155deg, #05080a 0%, #0a120d 30%, #0c1712 55%, #14170e 80%, #0a0806 100%);
+            background-size: 180% 180%;
+            animation: gradientShift 26s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+        }
+
+        /* كروت المجموعات - تأثير الزجاج (Glassmorphism) */
+        .group-card {
+            background: rgba(16, 24, 19, 0.55);
+            border: 1.5px solid rgba(212, 175, 55, 0.16);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 22px 40px -14px rgba(0, 0, 0, 0.55), 0 0 28px rgba(46, 94, 66, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+        .group-card.open {
+            border-color: rgba(64, 131, 93, 0.55);
+            box-shadow: 0 0 26px rgba(46, 94, 66, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* لوحات زجاجية ثانوية (الرأس وشريط الإحصائيات) */
+        .glass-panel {
+            background: rgba(10, 15, 12, 0.55);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050806;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #183324;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen pb-20 selection:bg-amber-500 selection:text-black">
+
+    <!-- Header Section -->
+    <header class="glass-panel border-b border-[#183324]/70 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Right side: Title and Section Info -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-start">
+                <div class="w-11 h-11 rounded-xl bg-[#122218] border border-[#214731] flex items-center justify-center text-amber-400 shadow-inner">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-wide">مجموعات مادة المهارات الجامعية</h1>
+                    <p class="text-xs text-emerald-400/90 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                        جامعة الطائف - الفصل الدراسي الحالي
+                    </p>
+                </div>
+            </div>
+
+            <!-- TU Gold Emblem (Center) -->
+            <div class="my-0 z-30 flex flex-col items-center gap-1.5">
+                <svg viewBox="0 0 200 200" class="w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_0_10px_rgba(212,175,55,0.45)]" role="img" aria-label="شعار جامعة الطائف">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f7e08a"/>
+                            <stop offset="45%" stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#8a6d1f"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Outer rings -->
+                    <circle cx="100" cy="100" r="94" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                    <circle cx="100" cy="100" r="83" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+
+                    <!-- Laurel branches -->
+                    <g fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round">
+                        <path d="M42 108 Q30 122 34 140 Q40 132 46 130 M34 140 Q42 146 50 144 M34 140 Q28 150 32 160"/>
+                        <path d="M158 108 Q170 122 166 140 Q160 132 154 130 M166 140 Q158 146 150 144 M166 140 Q172 150 168 160"/>
+                    </g>
+
+                    <!-- Top star -->
+                    <path fill="url(#goldGrad)" d="M100 28 l4.2 8.6 9.5 1.1 -6.9 6.8 1.6 9.4 -8.4-4.6 -8.4 4.6 1.6-9.4 -6.9-6.8 9.5-1.1z"/>
+
+                    <!-- TU Monogram -->
+                    <text x="100" y="128" font-size="68" font-weight="900" fill="url(#goldGrad)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">TU</text>
+                </svg>
+                <div class="flex flex-col items-center leading-tight">
+                    <span class="text-[11px] md:text-xs font-extrabold bg-gradient-to-r from-[#f7e08a] via-[#d4af37] to-[#8a6d1f] bg-clip-text text-transparent tracking-wide">جامعة الطائف</span>
+                    <span class="text-[8px] md:text-[9px] text-gray-500 font-semibold tracking-[0.15em]">TAIF UNIVERSITY</span>
+                </div>
+            </div>
+
+            <!-- Left side: Search Box -->
+            <div class="w-full md:w-auto flex justify-end">
+                <div class="relative w-full md:w-64">
+                    <input type="text" id="searchInput" oninput="filterGroups()" placeholder="بحث باسم القائد أو الطالب..." 
+                        class="w-full bg-[#0d1410] border border-[#1e3e2c] rounded-xl px-3.5 py-2 pr-9 text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition">
+                    <i class="fa-solid fa-magnifying-glass absolute top-3 right-3 text-gray-400 text-xs"></i>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        
+        <!-- Info & Statistics Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-7 glass-panel border border-[#183324]/70 rounded-xl p-4 gap-3">
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-users-rectangle text-amber-400 text-base"></i>
+                    <span>إجمالي المجموعات : <strong id="totalGroupsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">8 مجموعات</strong></span>
+                </div>
+                <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-user-graduate text-amber-400 text-base"></i>
+                    <span>إجمالي الطلاب : <strong id="totalStudentsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">0 طالب</strong></span>
+                </div>
+            </div>
+            <div class="text-xs text-gray-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info text-amber-400/80"></i>
+                <span>اضغط على اسم أي مجموعة لاستعراض القائد والأعضاء</span>
+            </div>
+        </div>
+
+        <!-- Groups Grid Container -->
+        <div id="groupsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+            <!-- Dynamically populated via JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer / Copyright -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+        <div class="glass-panel border border-[#183324]/70 rounded-xl py-4 text-center">
+            <p class="text-xs text-amber-300/90 font-semibold">
+                جميع الحقوق محفوظة &copy; <span id="copyrightYear"></span> - خالد أحمد الهلال
+            </p>
+            <p class="text-[11px] text-gray-500 mt-1">جامعة الطائف - مادة المهارات الجامعية</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data for all groups
+        const groups = [
+            {
+                id: 1,
+                title: "المجموعة الأولى",
+                leader: "خالد الهلال",
+                members: [
+                    "أحمد سلطان السواط",
+                    "عمر عاطي النمري",
+                    "غازي عبدالرحمن النفيعي",
+                    "المقداد الثعلي",
+                    "أديب صويلح العتيبي",
+                    "أصيل عيضة الثقفي",
+                    "عبدالله الطويرقي"
+                ]
+            },
+            {
+                id: 2,
+                title: "المجموعة الثانية",
+                leader: "نايف شجاع العتيبي",
+                members: [
+                    "بتال إبراهيم السواط",
+                    "زياد حسين القرشي",
+                    "محسن أحمد الحميدي",
+                    "فهد عابد الثقفي",
+                    "عبدالعزيز فهد الزهراني",
+                    "نواف عبدالله المالكي",
+                    "بتال جميل الجعيد"
+                ]
+            },
+            {
+                id: 3,
+                title: "المجموعة الثالثة",
+                leader: "رعد خالد الخالدي",
+                members: [
+                    "محمد ناجي المرواني",
+                    "عبدالله سعد البقمي",
+                    "رايد يوسف العتيبي",
+                    "فيصل عويض المطيري",
+                    "فارس مشحن المطيري",
+                    "ريان مطلق زيد الشريف"
+                ]
+            },
+            {
+                id: 4,
+                title: "المجموعة الرابعة",
+                leader: "باسم أحمد الجعيد",
+                members: [
+                    "محمد فهد مطلق الحارثي",
+                    "ثنيان ماجد الجعيد",
+                    "محمد سلطان الجودي",
+                    "مهند عوض المالكي",
+                    "ريان زارع الشهري",
+                    "ماجد سعد المولد"
+                ]
+            },
+            {
+                id: 5,
+                title: "المجموعة الخامسة",
+                leader: "مهند عبدالله القرني",
+                members: [
+                    "حمزة محمد التركستاني",
+                    "فيصل خالد الخديدي",
+                    "يوسف محمد الشهري",
+                    "ياسر نايف الثمالي",
+                    "مهند رجب الزهراني",
+                    "تميم عبدالله محمد العتيبي"
+                ]
+            },
+            {
+                id: 6,
+                title: "المجموعة السادسة",
+                leader: "مازن محمد الزهراني",
+                members: [
+                    "بندر المتعاني",
+                    "حسين أحمد واصلي",
+                    "هاني عبدالله الثبيتي",
+                    "سلطان محمد الياسي",
+                    "حسن محمد بن جوبح",
+                    "الحسن عبد الوهاب الحازمي",
+                    "فهد ناصر السلمي"
+                ]
+            },
+            {
+                id: 7,
+                title: "المجموعة السابعة",
+                leader: "عبدالله عادل القثامي",
+                members: [
+                    "تركي عبدالرحمن ضريس النفيعي",
+                    "سطام تركي معيض العتيبي",
+                    "أحمد سعد الطلحي",
+                    "شاهر الطلحي",
+                    "عبد الرحمن نايف الحارثي"
+                ]
+            },
+            {
+                id: 8,
+                title: "المجموعة الثامنة",
+                leader: "عبدالمجيد صامل القثامي",
+                members: [
+                    "ياسر سعود الشلوي",
+                    "وافي عادل الخديدي",
+                    "عزام عبدالله الاسمري",
+                    "عبدالمجيد أحمد الازوري",
+                    "عبدالمجيد عبدالله النفيعي",
+                    "احمد فهد البراق",
+                    "نادر سعد العتيبي"
+                ]
+            }
+        ];
+
+        // Accordion states
+        const openStates = {};
+
+        // Toggle card open/close
+        function toggleGroup(id) {
+            openStates[id] = !openStates[id];
+            renderGroups(getFilteredData());
+        }
+
+        // Get filtered array
+        function getFilteredData() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            if (!query) return groups;
+            return groups.filter(g => {
+                const titleMatch = g.title.toLowerCase().includes(query);
+                const leaderMatch = g.leader.toLowerCase().includes(query);
+                const memberMatch = g.members.some(m => m.toLowerCase().includes(query));
+                return titleMatch || leaderMatch || memberMatch;
+            });
+        }
+
+        function filterGroups() {
+            renderGroups(getFilteredData());
+        }
+
+        // Render Cards
+        function renderGroups(data) {
+            const grid = document.getElementById("groupsGrid");
+            grid.innerHTML = "";
+
+            if (data.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-gray-400 glass-panel rounded-xl border border-[#183324]/70">
+                        <i class="fa-solid fa-magnifying-glass text-3xl text-gray-600 mb-3"></i>
+                        <p class="text-sm">لم يتم العثور على أي نتائج مطابقة للبحث</p>
+                    </div>
+                `;
+                return;
+            }
+
+            data.forEach(group => {
+                const isOpen = !!openStates[group.id];
+                const totalCount = group.members.length + (group.leader ? 1 : 0);
+
+                const cardHtml = `
+                    <div class="group-card rounded-xl overflow-hidden ${isOpen ? 'open' : ''}">
+                        <!-- Header Button -->
+                        <button onclick="toggleGroup(${group.id})"
+                                class="w-full px-5 py-4 flex items-center justify-between text-right hover:bg-[#121c15]/60 transition cursor-pointer select-none">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 shrink-0 rounded-lg bg-[#14261c]/80 border border-[#214731] flex items-center justify-center text-amber-400/90">
+                                    <i class="fa-solid fa-people-group text-sm"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-white text-sm sm:text-base">${group.title}</h3>
+                                    <p class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-users text-[10px]"></i>
+                                        ${totalCount} أعضاء في المجموعة
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-gray-400 text-xs w-6 h-6 rounded-full bg-[#14261c] flex items-center justify-center border border-[#1f3d2c]">
+                                <i class="fa-solid ${isOpen ? 'fa-chevron-up text-amber-400' : 'fa-chevron-down'}"></i>
+                            </div>
+                        </button>
+
+                        <!-- Expandable Body -->
+                        ${isOpen ? `
+                            <div class="border-t border-[#183324]/70 bg-[#070b09]/50 p-4 space-y-3 animate-fadeIn">
+
+                                <!-- Leader Info Badge -->
+                                <div class="bg-gradient-to-r from-[#14281d]/90 to-[#0f1f17]/90 border border-[#234b34] rounded-lg p-3 flex items-center justify-between shadow-sm">
+                                    <div>
+                                        <span class="text-[10px] text-amber-400 font-bold block mb-1 tracking-wider">قائد المجموعة</span>
+                                        <span class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
+                                            ${group.leader || "غير محدد"}
+                                        </span>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-[#1b3627] flex items-center justify-center text-amber-400 border border-amber-500/40 shadow">
+                                        <i class="fa-solid fa-crown text-xs"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Member List -->
+                                <div class="space-y-2 pt-1.5">
+                                    <div class="text-[10px] text-gray-400 font-semibold px-1 flex items-center justify-between">
+                                        <span class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-list-ul text-amber-400/70"></i>
+                                            أعضاء المجموعة:
+                                        </span>
+                                        <span>(${group.members.length})</span>
+                                    </div>
+                                    ${group.members.length > 0 ? group.members.map(member => `
+                                        <div class="flex items-center justify-between bg-[#0e1712]/70 px-3.5 py-2.5 rounded-lg text-xs text-gray-200 border border-[#172c20] hover:border-[#274f38] transition">
+                                            <span class="font-medium">${member}</span>
+                                            <i class="fa-solid fa-user-graduate text-[10px] text-emerald-500/70"></i>
+                                        </div>
+                                    `).join('') : `
+                                        <div class="text-center py-3 bg-[#0d1410]/60 rounded-lg border border-dashed border-[#1f3a2b]">
+                                            <p class="text-xs text-gray-500 italic">في انتظار إضافة الأعضاء</p>
+                                        </div>
+                                    `}
+                                </div>
+
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // Compute overall totals and update the statistics bar
+        function updateTotals() {
+            const totalStudents = groups.reduce((sum, g) => sum + g.members.length + (g.leader ? 1 : 0), 0);
+            document.getElementById("totalGroupsCount").textContent = `${groups.length} مجموعات`;
+            document.getElementById("totalStudentsCount").textContent = `${totalStudents} طالب`;
+        }
+
+        // Initialize page on load
+        window.onload = function() {
+            updateTotals();
+            renderGroups(groups);
+            document.getElementById("copyrightYear").textContent = new Date().getFullYear();
+        };
+    </script>
+</body>
+</html>
