@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجموعات مادة المهارات الجامعية</title>
+    <title>مجموعات مادة المهارات الجامعية - شعبة 1825</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts (Cairo) -->
@@ -19,16 +19,16 @@
             min-height: 100vh;
         }
 
-        /* خلفية متدرجة متحركة بدرجات داكنة وذهبية/برونزية خفيفة */
+        /* خلفية متدرجة متحركة داكنة مع وهج ذهبي وزمردي */
         body::before {
             content: "";
             position: fixed;
             inset: 0;
             z-index: -1;
             background:
-                radial-gradient(circle at 18% 15%, rgba(212, 175, 55, 0.10), transparent 45%),
-                radial-gradient(circle at 85% 20%, rgba(180, 130, 60, 0.07), transparent 40%),
-                radial-gradient(circle at 80% 85%, rgba(46, 94, 66, 0.20), transparent 50%),
+                radial-gradient(circle at 18% 15%, rgba(212, 175, 55, 0.12), transparent 45%),
+                radial-gradient(circle at 85% 20%, rgba(180, 130, 60, 0.08), transparent 40%),
+                radial-gradient(circle at 80% 85%, rgba(46, 94, 66, 0.22), transparent 50%),
                 linear-gradient(155deg, #05080a 0%, #0a120d 30%, #0c1712 55%, #14170e 80%, #0a0806 100%);
             background-size: 180% 180%;
             animation: gradientShift 26s ease-in-out infinite;
@@ -38,7 +38,7 @@
             50% { background-position: 100% 100%; }
         }
 
-        /* شاشة الافتتاح */
+        /* شاشة الافتتاح (Intro Screen) */
         .intro-screen {
             position: fixed;
             inset: 0;
@@ -46,18 +46,17 @@
             display: grid;
             place-items: center;
             overflow: hidden;
-            background: rgba(5, 8, 6, 0.95);
+            background: rgba(5, 8, 6, 0.96);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
         }
         .intro-screen::before {
             content: "";
             position: absolute;
             inset: 15%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 65%);
-            filter: blur(30px);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent 65%);
+            filter: blur(35px);
             pointer-events: none;
         }
         .intro-screen.is-hidden {
@@ -72,7 +71,7 @@
             align-items: center;
             gap: 1.25rem;
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             max-width: 90vw;
             animation: introRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
@@ -84,22 +83,22 @@
         .intro-welcome {
             margin: 0;
             color: #f7e08a;
-            font-size: clamp(1.25rem, 3.5vw, 1.85rem);
+            font-size: clamp(1.35rem, 3.8vw, 2.1rem);
             font-weight: 800;
             opacity: 0;
             animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
         }
         .intro-subtitle {
             margin: 0;
             color: #34d399;
-            font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+            font-size: clamp(0.95rem, 2.4vw, 1.25rem);
             font-weight: 700;
             opacity: 0;
             animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
         }
         .intro-hint-btn {
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
             opacity: 0;
             animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards;
         }
@@ -119,33 +118,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* كروت المجموعات - تأثير الزجاج (Glassmorphism) */
+        /* كروت المجموعات - Glassmorphism */
         .group-card {
             background: rgba(16, 24, 19, 0.55);
-            border: 1.5px solid rgba(212, 175, 55, 0.16);
+            border: 1.5px solid rgba(212, 175, 55, 0.18);
             backdrop-filter: blur(16px) saturate(140%);
             -webkit-backdrop-filter: blur(16px) saturate(140%);
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .group-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 22px 40px -14px rgba(0, 0, 0, 0.55), 0 0 28px rgba(46, 94, 66, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border-color: rgba(212, 175, 55, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 35px -12px rgba(0, 0, 0, 0.55), 0 0 24px rgba(46, 94, 66, 0.35);
         }
         .group-card.open {
-            border-color: rgba(64, 131, 93, 0.55);
+            border-color: rgba(64, 131, 93, 0.65);
             box-shadow: 0 0 26px rgba(46, 94, 66, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        /* لوحات زجاجية ثانوية (الرأس وشريط الإحصائيات) */
+        /* لوحات زجاجية ثانوية */
         .glass-panel {
-            background: rgba(10, 15, 12, 0.55);
+            background: rgba(10, 15, 12, 0.6);
             backdrop-filter: blur(14px) saturate(140%);
             -webkit-backdrop-filter: blur(14px) saturate(140%);
         }
 
-        /* انيميشن الظهور السريع */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-6px); }
             to { opacity: 1; transform: translateY(0); }
@@ -173,7 +171,7 @@
 <body class="text-gray-100 min-h-screen pb-20 selection:bg-amber-500 selection:text-black">
 
     <!-- Intro / Splash Screen -->
-    <div id="introScreen" onclick="dismissIntro()" class="intro-screen" title="انقر للدخول المباشر">
+    <div id="introScreen" class="intro-screen">
         <div class="intro-content">
             <!-- Royal Gold TU Emblem -->
             <div class="intro-logo-wrap">
@@ -200,9 +198,9 @@
             <h2 class="intro-welcome">أهلاً وسهلاً بكم في منصة مجموعات شعبة 1825</h2>
             <p class="intro-subtitle">مادة المهارات الجامعية - جامعة الطائف</p>
 
-            <!-- Action Button / Hint -->
+            <!-- Action Button / Dismiss Button -->
             <div class="intro-hint-btn">
-                <button onclick="dismissIntro()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs shadow-lg shadow-amber-500/20 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                <button onclick="dismissIntro()" class="px-7 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-sm shadow-xl shadow-amber-500/25 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer">
                     <span>استكشاف المجموعات</span>
                     <i class="fa-solid fa-arrow-left"></i>
                 </button>
@@ -212,7 +210,7 @@
 
     <!-- Header Section -->
     <header class="glass-panel border-b border-[#183324]/70 relative z-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
             
             <!-- Right side: Title and Section Info -->
             <div class="flex items-center gap-3 w-full md:w-auto justify-start">
@@ -223,14 +221,14 @@
                     <h1 class="text-lg font-bold text-white tracking-wide">مجموعات مادة المهارات الجامعية</h1>
                     <p class="text-xs text-emerald-400/90 font-semibold flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-                        جامعة الطائف - الفصل الدراسي الحالي
+                        شعبة 1825 - جامعة الطائف
                     </p>
                 </div>
             </div>
 
             <!-- TU Gold Emblem (Center) -->
-            <div class="my-0 z-30 flex flex-col items-center gap-1.5">
-                <svg viewBox="0 0 200 200" class="w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_0_10px_rgba(212,175,55,0.45)]" role="img" aria-label="شعار جامعة الطائف">
+            <div class="my-0 z-30 flex flex-col items-center gap-1">
+                <svg viewBox="0 0 200 200" class="w-14 h-14 md:w-16 md:h-16 drop-shadow-[0_0_10px_rgba(212,175,55,0.45)]" role="img" aria-label="شعار جامعة الطائف">
                     <defs>
                         <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#f7e08a"/>
@@ -239,32 +237,26 @@
                         </linearGradient>
                     </defs>
 
-                    <!-- Outer rings -->
                     <circle cx="100" cy="100" r="94" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
                     <circle cx="100" cy="100" r="83" fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
 
-                    <!-- Laurel branches -->
                     <g fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round">
                         <path d="M42 108 Q30 122 34 140 Q40 132 46 130 M34 140 Q42 146 50 144 M34 140 Q28 150 32 160"/>
                         <path d="M158 108 Q170 122 166 140 Q160 132 154 130 M166 140 Q158 146 150 144 M166 140 Q172 150 168 160"/>
                     </g>
 
-                    <!-- Top star -->
                     <path fill="url(#goldGrad)" d="M100 28 l4.2 8.6 9.5 1.1 -6.9 6.8 1.6 9.4 -8.4-4.6 -8.4 4.6 1.6-9.4 -6.9-6.8 9.5-1.1z"/>
-
-                    <!-- TU Monogram -->
                     <text x="100" y="128" font-size="68" font-weight="900" fill="url(#goldGrad)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">TU</text>
                 </svg>
                 <div class="flex flex-col items-center leading-tight">
-                    <span class="text-[11px] md:text-xs font-extrabold bg-gradient-to-r from-[#f7e08a] via-[#d4af37] to-[#8a6d1f] bg-clip-text text-transparent tracking-wide">جامعة الطائف</span>
-                    <span class="text-[8px] md:text-[9px] text-gray-500 font-semibold tracking-[0.15em]">TAIF UNIVERSITY</span>
+                    <span class="text-[11px] font-extrabold bg-gradient-to-r from-[#f7e08a] via-[#d4af37] to-[#8a6d1f] bg-clip-text text-transparent tracking-wide">جامعة الطائف</span>
                 </div>
             </div>
 
             <!-- Left side: Search Box -->
             <div class="w-full md:w-auto flex justify-end">
                 <div class="relative w-full md:w-64">
-                    <input type="text" id="searchInput" oninput="filterGroups()" placeholder="بحث باسم القائد أو الطالب..." 
+                    <input type="text" id="searchInput" oninput="filterGroups()" placeholder="بحث باسم الطالب أو رقم الجوال..." 
                         class="w-full bg-[#0d1410] border border-[#1e3e2c] rounded-xl px-3.5 py-2 pr-9 text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition">
                     <i class="fa-solid fa-magnifying-glass absolute top-3 right-3 text-gray-400 text-xs"></i>
                 </div>
@@ -274,23 +266,31 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         
-        <!-- Info & Statistics Bar -->
-        <div class="flex flex-col sm:flex-row items-center justify-between mb-7 glass-panel border border-[#183324]/70 rounded-xl p-4 gap-3">
-            <div class="flex flex-col sm:flex-row items-center gap-3">
+        <!-- Info & Statistics & Actions Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-6 glass-panel border border-[#183324]/70 rounded-xl p-4 gap-3">
+            <div class="flex flex-wrap items-center gap-3">
                 <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
                     <i class="fa-solid fa-users-rectangle text-amber-400 text-base"></i>
-                    <span>إجمالي المجموعات : <strong id="totalGroupsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">0 مجموعات</strong></span>
+                    <span>إجمالي المجموعات : <strong id="totalGroupsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">8 مجموعات</strong></span>
                 </div>
                 <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
                     <i class="fa-solid fa-user-graduate text-amber-400 text-base"></i>
                     <span>إجمالي الطلاب : <strong id="totalStudentsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">0 طالب</strong></span>
                 </div>
             </div>
-            <div class="text-xs text-gray-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-circle-info text-amber-400/80"></i>
-                <span>اضغط على اسم أي مجموعة لاستعراض القائد والأعضاء</span>
+
+            <!-- Global Expand/Collapse Buttons -->
+            <div class="flex items-center gap-2">
+                <button onclick="toggleExpandAll(true)" class="px-3 py-1.5 rounded-lg bg-[#14291c] hover:bg-[#1c3a28] text-xs text-emerald-300 border border-[#234b34] transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-angles-down text-[10px]"></i>
+                    <span>توسيع الكل</span>
+                </button>
+                <button onclick="toggleExpandAll(false)" class="px-3 py-1.5 rounded-lg bg-[#14291c] hover:bg-[#1c3a28] text-xs text-gray-300 border border-[#234b34] transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-angles-up text-[10px]"></i>
+                    <span>طي الكل</span>
+                </button>
             </div>
         </div>
 
@@ -307,140 +307,168 @@
             <p class="text-xs text-amber-300/90 font-semibold">
                 جميع الحقوق محفوظة &copy; <span id="copyrightYear"></span> - خالد أحمد الهلال
             </p>
-            <p class="text-[11px] text-gray-500 mt-1">جامعة الطائف - مادة المهارات الجامعية</p>
+            <p class="text-[11px] text-gray-500 mt-1">جامعة الطائف - شعبة 1825 - مادة المهارات الجامعية</p>
         </div>
     </footer>
 
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-[#122218] text-amber-300 border border-amber-500/40 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastMsg">تم النسخ بنجاح!</span>
+    </div>
+
     <script>
-        // Data for all groups
+        // Data strictly reflecting original student structures with mapped contact numbers
         const groups = [
             {
                 id: 1,
                 title: "المجموعة الأولى",
-                leader: "خالد الهلال",
+                leader: { name: "خالد الهلال", phone: "0562313661" },
                 members: [
-                    "أحمد سلطان السواط",
-                    "عمر عاطي النمري",
-                    "غازي عبدالرحمن النفيعي",
-                    "المقداد الثعلي",
-                    "أديب صويلح العتيبي",
-                    "أصيل عيضة الثقفي",
-                    "عبدالله الطويرقي"
+                    { name: "أحمد سلطان السواط", phone: "0537562762" },
+                    { name: "عمر عاطي النمري", phone: "0538442822" },
+                    { name: "غازي عبدالرحمن النفيعي", phone: "0559002739" },
+                    { name: "المقداد الثعلي", phone: "0536015836" },
+                    { name: "أديب صويلح العتيبي", phone: "0536020357" },
+                    { name: "أصيل عيضة الثقفي", phone: "" },
+                    { name: "عبدالله الطويرقي", phone: "0502262084" }
                 ]
             },
             {
                 id: 2,
                 title: "المجموعة الثانية",
-                leader: "نايف شجاع العتيبي",
+                leader: { name: "نايف شجاع العتيبي", phone: "" },
                 members: [
-                    "بتال إبراهيم السواط",
-                    "زياد حسين القرشي",
-                    "محسن أحمد الحميدي",
-                    "فهد عابد الثقفي",
-                    "عبدالعزيز فهد الزهراني",
-                    "نواف عبدالله المالكي",
-                    "بتال جميل الجعيد"
+                    { name: "بتال إبراهيم السواط", phone: "0504505332" },
+                    { name: "زياد حسين القرشي", phone: "0558977389" },
+                    { name: "محسن أحمد الحميدي", phone: "0558562722" },
+                    { name: "فهد عابد الثقفي", phone: "0543735466" },
+                    { name: "عبدالعزيز فهد الزهراني", phone: "0551019970" },
+                    { name: "نواف عبدالله المالكي", phone: "0582257416" },
+                    { name: "بتال جميل الجعيد", phone: "0502099676" }
                 ]
             },
             {
                 id: 3,
                 title: "المجموعة الثالثة",
-                leader: "رعد خالد الخالدي",
+                leader: { name: "رعد خالد الخالدي", phone: "" },
                 members: [
-                    "محمد ناجي المرواني",
-                    "عبدالله سعد البقمي",
-                    "رايد يوسف العتيبي",
-                    "فيصل عويض المطيري",
-                    "فارس مشحن المطيري",
-                    "ريان مطلق زيد الشريف"
+                    { name: "محمد ناجي المرواني", phone: "0583132427" },
+                    { name: "عبدالله سعد البقمي", phone: "0537914770" },
+                    { name: "رايد يوسف العتيبي", phone: "0530700320" },
+                    { name: "فيصل عويض المطيري", phone: "0534169305" },
+                    { name: "فارس مشحن المطيري", phone: "0556351409" },
+                    { name: "ريان مطلق زيد الشريف", phone: "0530811395" }
                 ]
             },
             {
                 id: 4,
                 title: "المجموعة الرابعة",
-                leader: "باسم أحمد الجعيد",
+                leader: { name: "باسم أحمد الجعيد", phone: "0590045220" },
                 members: [
-                    "محمد فهد مطلق الحارثي",
-                    "ثنيان ماجد الجعيد",
-                    "محمد سلطان الجودي",
-                    "مهند عوض المالكي",
-                    "ريان زارع الشهري",
-                    "ماجد سعد المولد"
+                    { name: "محمد فهد مطلق الحارثي", phone: "0532795594" },
+                    { name: "ثنيان ماجد الجعيد", phone: "0502602801" },
+                    { name: "محمد سلطان الجودي", phone: "0557734489" },
+                    { name: "مهند عوض المالكي", phone: "0559931001" },
+                    { name: "ريان زارع الشهري", phone: "0501859144" },
+                    { name: "ماجد سعد المولد", phone: "0533826485" }
                 ]
             },
             {
                 id: 5,
                 title: "المجموعة الخامسة",
-                leader: "مهند عبدالله القرني",
+                leader: { name: "مهند عبدالله القرني", phone: "" },
                 members: [
-                    "حمزة محمد التركستاني",
-                    "فيصل خالد الخديدي",
-                    "يوسف محمد الشهري",
-                    "ياسر نايف الثمالي",
-                    "مهند رجب الزهراني",
-                    "تميم عبدالله محمد العتيبي"
+                    { name: "حمزة محمد التركستاني", phone: "0506518797" },
+                    { name: "فيصل خالد الخديدي", phone: "0541432764" },
+                    { name: "يوسف محمد الشهري", phone: "0569783406" },
+                    { name: "ياسر نايف الثمالي", phone: "0531671832" },
+                    { name: "مهند رجب الزهراني", phone: "0593438208" },
+                    { name: "تميم", phone: "0503988557" }
                 ]
             },
             {
                 id: 6,
                 title: "المجموعة السادسة",
-                leader: "مازن محمد الزهراني",
+                leader: { name: "مازن محمد الزهراني", phone: "" },
                 members: [
-                    "بندر المتعاني",
-                    "حسين أحمد واصلي",
-                    "هاني عبدالله الثبيتي",
-                    "سلطان محمد الياسي",
-                    "حسن محمد بن جوبح",
-                    "الحسن عبد الوهاب الحازمي",
-                    "فهد ناصر السلمي"
+                    { name: "بندر المتعاني", phone: "0537294125" },
+                    { name: "حسين أحمد واصلي", phone: "0502099044" },
+                    { name: "هاني عبدالله الثبيتي", phone: "0530455080" },
+                    { name: "سلطان محمد الياسي", phone: "0550436689" },
+                    { name: "حسن محمد بن جوبح", phone: "" },
+                    { name: "الحسن عبد الوهاب الحازمي", phone: "0557022483" },
+                    { name: "فهد ناصر السلمي", phone: "0543096065" }
                 ]
             },
             {
                 id: 7,
                 title: "المجموعة السابعة",
-                leader: "عبدالله عادل القثامي",
+                leader: { name: "عبدالله عادل القثامي", phone: "" },
                 members: [
-                    "تركي عبدالرحمن ضريس النفيعي",
-                    "سطام تركي معيض العتيبي",
-                    "أحمد سعد الطلحي",
-                    "شاهر الطلحي",
-                    "عبد الرحمن نايف الحارثي",
-                    "عبدالهادي عبدالله الثقفي"
+                    { name: "تركي عبدالرحمن ضريس النفيعي", phone: "0537261909" },
+                    { name: "سطام تركي معيض العتيبي", phone: "0503282604" },
+                    { name: "أحمد سعد الطلحي", phone: "0563961120" },
+                    { name: "شاهر الطلحي", phone: "0543411054" },
+                    { name: "عبدالرحمن نايف الحارثي", phone: "0544613866" },
+                    { name: "عبدالهادي عبدالله الثقفي", phone: "0570006709" }
                 ]
             },
             {
                 id: 8,
                 title: "المجموعة الثامنة",
-                leader: "عبدالمجيد صامل القثامي",
+                leader: { name: "عبدالمجيد صامل القثامي", phone: "" },
                 members: [
-                    "ياسر سعود الشلوي",
-                    "وافي عادل الخديدي",
-                    "عزام عبدالله الاسمري",
-                    "عبدالمجيد أحمد الازوري",
-                    "عبدالمجيد عبدالله النفيعي",
-                    "احمد فهد البراق",
-                    "نادر سعد العتيبي"
+                    { name: "ياسر سعود الشلوي", phone: "0550169835" },
+                    { name: "وافي عادل الخديدي", phone: "" },
+                    { name: "عزام عبدالله الاسمري", phone: "" },
+                    { name: "عبدالمجيد أحمد الازوري", phone: "" },
+                    { name: "عبدالمجيد عبدالله النفيعي", phone: "0552521062" },
+                    { name: "أحمد فهد البراق", phone: "" },
+                    { name: "نادر سعد العتيبي", phone: "" }
                 ]
             }
         ];
 
-        // Accordion states tracker
         const openStates = {};
 
-        // Toggle card open/close state
+        function dismissIntro() {
+            const intro = document.getElementById("introScreen");
+            if (intro) {
+                intro.classList.add("is-hidden");
+            }
+        }
+
         function toggleGroup(id) {
             openStates[id] = !openStates[id];
             renderGroups(getFilteredData());
         }
 
-        // Get filtered data array based on search input
+        function toggleExpandAll(expandState) {
+            groups.forEach(g => {
+                openStates[g.id] = expandState;
+            });
+            renderGroups(getFilteredData());
+        }
+
+        function formatWaLink(phone) {
+            if (!phone) return "";
+            let clean = phone.replace(/\D/g, "");
+            if (clean.startsWith("05")) {
+                clean = "966" + clean.substring(1);
+            } else if (clean.startsWith("5")) {
+                clean = "966" + clean;
+            }
+            return `https://wa.me/${clean}`;
+        }
+
         function getFilteredData() {
             const query = document.getElementById("searchInput").value.toLowerCase().trim();
             if (!query) return groups;
             return groups.filter(g => {
                 const titleMatch = g.title.toLowerCase().includes(query);
-                const leaderMatch = g.leader ? g.leader.toLowerCase().includes(query) : false;
-                const memberMatch = g.members.some(m => m.toLowerCase().includes(query));
+                const leaderMatch = g.leader.name.toLowerCase().includes(query) || (g.leader.phone && g.leader.phone.includes(query));
+                const memberMatch = g.members.some(m => m.name.toLowerCase().includes(query) || (m.phone && m.phone.includes(query)));
                 return titleMatch || leaderMatch || memberMatch;
             });
         }
@@ -449,7 +477,45 @@
             renderGroups(getFilteredData());
         }
 
-        // Render Cards dynamically
+        function copyGroupText(groupId, event) {
+            if (event) event.stopPropagation();
+            const group = groups.find(g => g.id === groupId);
+            if (!group) return;
+
+            let text = `📌 *${group.title} - شعبة 1825*\n`;
+            text += `👑 *القائد:* ${group.leader.name} ${group.leader.phone ? '(' + group.leader.phone + ')' : ''}\n\n`;
+            text += `👥 *الأعضاء:*\n`;
+            group.members.forEach((m, idx) => {
+                text += `${idx + 1}. ${m.name} ${m.phone ? '(' + m.phone + ')' : ''}\n`;
+            });
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => showToast("تم نسخ بيانات المجموعة بنجاح!"));
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("تم نسخ بيانات المجموعة بنجاح!");
+                } catch (err) {
+                    showToast("تعذر النسخ التلقائي");
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toastMsg");
+            toastMsg.textContent = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 3000);
+        }
+
         function renderGroups(data) {
             const grid = document.getElementById("groupsGrid");
             grid.innerHTML = "";
@@ -466,66 +532,86 @@
 
             data.forEach(group => {
                 const isOpen = !!openStates[group.id];
-                const totalCount = group.members.length + (group.leader ? 1 : 0);
+                const totalCount = group.members.length + (group.leader.name ? 1 : 0);
 
                 const cardHtml = `
                     <div class="group-card rounded-xl overflow-hidden ${isOpen ? 'open' : ''}">
                         <!-- Header Button -->
-                        <button onclick="toggleGroup(${group.id})"
-                                class="w-full px-5 py-4 flex items-center justify-between text-right hover:bg-[#121c15]/60 transition cursor-pointer select-none">
+                        <div onclick="toggleGroup(${group.id})"
+                             class="w-full px-4 py-3.5 flex items-center justify-between text-right hover:bg-[#121c15]/60 transition cursor-pointer select-none">
                             <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 shrink-0 rounded-lg bg-[#14261c]/80 border border-[#214731] flex items-center justify-center text-amber-400/90">
+                                <div class="w-9 h-9 shrink-0 rounded-lg bg-[#14261c]/80 border border-[#214731] flex items-center justify-center text-amber-400">
                                     <i class="fa-solid fa-people-group text-sm"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-sm sm:text-base">${group.title}</h3>
-                                    <p class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
+                                    <p class="text-[11px] text-emerald-400 font-semibold mt-0.5 flex items-center gap-1.5">
                                         <i class="fa-solid fa-users text-[10px]"></i>
-                                        ${totalCount} أعضاء في المجموعة
+                                        ${totalCount} أعضاء
                                     </p>
                                 </div>
                             </div>
-                            <div class="text-gray-400 text-xs w-6 h-6 rounded-full bg-[#14261c] flex items-center justify-center border border-[#1f3d2c]">
-                                <i class="fa-solid ${isOpen ? 'fa-chevron-up text-amber-400' : 'fa-chevron-down'}"></i>
+                            
+                            <div class="flex items-center gap-2">
+                                <button onclick="copyGroupText(${group.id}, event)" title="نسخ بيانات المجموعة" class="w-7 h-7 rounded-lg bg-[#152e20] hover:bg-[#1d402c] text-amber-400 border border-[#27533b] flex items-center justify-center transition">
+                                    <i class="fa-regular fa-copy text-xs"></i>
+                                </button>
+                                <div class="text-gray-400 text-xs w-6 h-6 rounded-full bg-[#14261c] flex items-center justify-center border border-[#1f3d2c]">
+                                    <i class="fa-solid ${isOpen ? 'fa-chevron-up text-amber-400' : 'fa-chevron-down'}"></i>
+                                </div>
                             </div>
-                        </button>
+                        </div>
 
                         <!-- Expandable Body -->
                         ${isOpen ? `
-                            <div class="border-t border-[#183324]/70 bg-[#070b09]/50 p-4 space-y-3 animate-fadeIn">
+                            <div class="border-t border-[#183324]/70 bg-[#070b09]/50 p-3.5 space-y-3 animate-fadeIn">
 
                                 <!-- Leader Info Badge -->
                                 <div class="bg-gradient-to-r from-[#14281d]/90 to-[#0f1f17]/90 border border-[#234b34] rounded-lg p-3 flex items-center justify-between shadow-sm">
                                     <div>
-                                        <span class="text-[10px] text-amber-400 font-bold block mb-1 tracking-wider">قائد المجموعة</span>
-                                        <span class="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-                                            ${group.leader || "غير محدد"}
+                                        <span class="text-[10px] text-amber-400 font-bold block mb-0.5">قائد المجموعة</span>
+                                        <span class="font-bold text-white text-xs sm:text-sm block">
+                                            ${group.leader.name}
                                         </span>
+                                        ${group.leader.phone ? `
+                                            <span class="text-[11px] text-gray-400 dir-ltr inline-block mt-0.5">
+                                                ${group.leader.phone}
+                                            </span>
+                                        ` : ''}
                                     </div>
-                                    <div class="w-8 h-8 rounded-full bg-[#1b3627] flex items-center justify-center text-amber-400 border border-amber-500/40 shadow">
-                                        <i class="fa-solid fa-crown text-xs"></i>
+                                    <div class="flex items-center gap-2">
+                                        ${group.leader.phone ? `
+                                            <a href="${formatWaLink(group.leader.phone)}" target="_blank" title="تواصل عبر الواتساب" class="w-8 h-8 rounded-full bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-500/40 flex items-center justify-center transition">
+                                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                            </a>
+                                        ` : ''}
+                                        <div class="w-8 h-8 rounded-full bg-[#1b3627] flex items-center justify-center text-amber-400 border border-amber-500/40 shadow">
+                                            <i class="fa-solid fa-crown text-xs"></i>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Member List -->
-                                <div class="space-y-2 pt-1.5">
+                                <div class="space-y-1.5 pt-1">
                                     <div class="text-[10px] text-gray-400 font-semibold px-1 flex items-center justify-between">
-                                        <span class="flex items-center gap-1.5">
-                                            <i class="fa-solid fa-list-ul text-amber-400/70"></i>
-                                            أعضاء المجموعة:
-                                        </span>
-                                        <span>(${group.members.length})</span>
+                                        <span>الأعضاء (${group.members.length}):</span>
                                     </div>
-                                    ${group.members.length > 0 ? group.members.map(member => `
-                                        <div class="flex items-center justify-between bg-[#0e1712]/70 px-3.5 py-2.5 rounded-lg text-xs text-gray-200 border border-[#172c20] hover:border-[#274f38] transition">
-                                            <span class="font-medium">${member}</span>
-                                            <i class="fa-solid fa-user-graduate text-[10px] text-emerald-500/70"></i>
+                                    ${group.members.map(member => `
+                                        <div class="flex items-center justify-between bg-[#0e1712]/70 px-3 py-2 rounded-lg text-xs text-gray-200 border border-[#172c20] hover:border-[#274f38] transition">
+                                            <div>
+                                                <span class="font-medium block">${member.name}</span>
+                                                ${member.phone ? `<span class="text-[10px] text-gray-400 dir-ltr inline-block">${member.phone}</span>` : ''}
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                ${member.phone ? `
+                                                    <a href="${formatWaLink(member.phone)}" target="_blank" title="محادثة واتساب" class="text-emerald-400/80 hover:text-emerald-300 p-1">
+                                                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                                                    </a>
+                                                ` : ''}
+                                                <i class="fa-solid fa-user-graduate text-[10px] text-emerald-500/60"></i>
+                                            </div>
                                         </div>
-                                    `).join('') : `
-                                        <div class="text-center py-3 bg-[#0d1410]/60 rounded-lg border border-dashed border-[#1f3a2b]">
-                                            <p class="text-xs text-gray-500 italic">في انتظار إضافة الأعضاء</p>
-                                        </div>
-                                    `}
+                                    `).join('')}
                                 </div>
 
                             </div>
@@ -537,31 +623,17 @@
             });
         }
 
-        // Compute overall totals and update the statistics bar
         function updateTotals() {
-            const totalStudents = groups.reduce((sum, g) => sum + g.members.length + (g.leader ? 1 : 0), 0);
+            const totalStudents = groups.reduce((sum, g) => sum + g.members.length + (g.leader.name ? 1 : 0), 0);
             document.getElementById("totalGroupsCount").textContent = `${groups.length} مجموعات`;
             document.getElementById("totalStudentsCount").textContent = `${totalStudents} طالب`;
         }
 
-        let introDismissed = false;
-
-        function dismissIntro() {
-            if (introDismissed) return;
-            introDismissed = true;
-            const intro = document.getElementById("introScreen");
-            if (intro) {
-                intro.classList.add("is-hidden");
-            }
-        }
-
-        // Initialize page on load
+        // Initialize page on window load without automatic timeout
         window.onload = function() {
             updateTotals();
             renderGroups(groups);
             document.getElementById("copyrightYear").textContent = new Date().getFullYear();
-
-            // تم حذف السطر الخاص بالإغلاق التلقائي (setTimeout)
         };
     </script>
 </body>
