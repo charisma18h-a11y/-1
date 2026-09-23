@@ -46,15 +46,19 @@
             display: grid;
             place-items: center;
             overflow: hidden;
-            background: #050806;
-            transition: opacity 0.75s ease, visibility 0.75s ease;
+            background: rgba(5, 8, 6, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .intro-screen::before {
             content: "";
             position: absolute;
             inset: 15%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.16), transparent 65%);
-            filter: blur(18px);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 65%);
+            filter: blur(30px);
+            pointer-events: none;
         }
         .intro-screen.is-hidden {
             opacity: 0;
@@ -66,50 +70,55 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem;
             text-align: center;
-            animation: introRise 0.9s ease both;
+            padding: 2rem;
+            max-width: 90vw;
+            animation: introRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .intro-logo {
-            width: clamp(150px, 32vw, 220px);
-            height: clamp(150px, 32vw, 220px);
-            filter: drop-shadow(0 0 24px rgba(212, 175, 55, 0.48));
+        .intro-logo-wrap {
+            position: relative;
             transform-style: preserve-3d;
-            animation: logoSpin 2.2s cubic-bezier(0.45, 0, 0.55, 1) both;
+            animation: logoSpin 2.2s cubic-bezier(0.25, 1, 0.5, 1) both;
         }
         .intro-welcome {
             margin: 0;
             color: #f7e08a;
-            font-size: clamp(1.15rem, 3vw, 1.6rem);
+            font-size: clamp(1.25rem, 3.5vw, 1.85rem);
             font-weight: 800;
             opacity: 0;
-            animation: welcomeIn 0.7s ease 1.65s forwards;
+            animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
-        .intro-hint {
+        .intro-subtitle {
             margin: 0;
-            color: rgba(209, 213, 219, 0.7);
-            font-size: 0.75rem;
+            color: #34d399;
+            font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+            font-weight: 700;
             opacity: 0;
-            animation: welcomeIn 0.7s ease 1.85s forwards;
+            animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
         }
+        .intro-hint-btn {
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards;
+        }
+
         @keyframes logoSpin {
-            0% { opacity: 0; transform: perspective(800px) rotateY(-180deg) scale(0.72); }
-            18% { opacity: 1; }
-            65% { transform: perspective(800px) rotateY(180deg) scale(1); }
+            0% { opacity: 0; transform: perspective(800px) rotateY(-180deg) scale(0.6); }
+            40% { opacity: 1; }
+            70% { transform: perspective(800px) rotateY(180deg) scale(1.05); }
             100% { opacity: 1; transform: perspective(800px) rotateY(360deg) scale(1); }
         }
         @keyframes introRise {
-            from { transform: translateY(18px); }
+            from { transform: translateY(24px); }
             to { transform: translateY(0); }
         }
         @keyframes welcomeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @media (prefers-reduced-motion: reduce) {
-            .intro-logo { animation: none; }
-            .intro-welcome, .intro-hint { animation: welcomeIn 0.2s ease forwards; }
-        }
+
         /* كروت المجموعات - تأثير الزجاج (Glassmorphism) */
         .group-card {
             background: rgba(16, 24, 19, 0.55);
@@ -121,7 +130,7 @@
         }
         .group-card:hover {
             border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             box-shadow: 0 22px 40px -14px rgba(0, 0, 0, 0.55), 0 0 28px rgba(46, 94, 66, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
         .group-card.open {
@@ -134,6 +143,15 @@
             background: rgba(10, 15, 12, 0.55);
             backdrop-filter: blur(14px) saturate(140%);
             -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+
+        /* انيميشن الظهور السريع */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.25s ease-out forwards;
         }
 
         /* تخصيص شريط التمرير */
@@ -153,6 +171,44 @@
     </style>
 </head>
 <body class="text-gray-100 min-h-screen pb-20 selection:bg-amber-500 selection:text-black">
+
+    <!-- Intro / Splash Screen -->
+    <div id="introScreen" onclick="dismissIntro()" class="intro-screen" title="انقر للدخول المباشر">
+        <div class="intro-content">
+            <!-- Royal Gold TU Emblem -->
+            <div class="intro-logo-wrap">
+                <svg viewBox="0 0 200 200" class="w-32 h-32 md:w-44 md:h-44 drop-shadow-[0_0_25px_rgba(212,175,55,0.65)]" role="img" aria-label="شعار جامعة الطائف">
+                    <defs>
+                        <linearGradient id="introGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fff0aa"/>
+                            <stop offset="45%" stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#8a6d1f"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="94" fill="none" stroke="url(#introGoldGrad)" stroke-width="3"/>
+                    <circle cx="100" cy="100" r="83" fill="none" stroke="url(#introGoldGrad)" stroke-width="1.2"/>
+                    <g fill="none" stroke="url(#introGoldGrad)" stroke-width="2" stroke-linecap="round">
+                        <path d="M42 108 Q30 122 34 140 Q40 132 46 130 M34 140 Q42 146 50 144 M34 140 Q28 150 32 160"/>
+                        <path d="M158 108 Q170 122 166 140 Q160 132 154 130 M166 140 Q158 146 150 144 M166 140 Q172 150 168 160"/>
+                    </g>
+                    <path fill="url(#introGoldGrad)" d="M100 28 l4.2 8.6 9.5 1.1 -6.9 6.8 1.6 9.4 -8.4-4.6 -8.4 4.6 1.6-9.4 -6.9-6.8 9.5-1.1z"/>
+                    <text x="100" y="128" font-size="68" font-weight="900" fill="url(#introGoldGrad)" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">TU</text>
+                </svg>
+            </div>
+
+            <!-- Welcome Messages for Section 1825 -->
+            <h2 class="intro-welcome">أهلاً وسهلاً بكم في منصة مجموعات شعبة 1825</h2>
+            <p class="intro-subtitle">مادة المهارات الجامعية - جامعة الطائف</p>
+
+            <!-- Action Button / Hint -->
+            <div class="intro-hint-btn">
+                <button onclick="dismissIntro()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs shadow-lg shadow-amber-500/20 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <span>استكشاف المجموعات</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Header Section -->
     <header class="glass-panel border-b border-[#183324]/70 relative z-20">
@@ -225,7 +281,7 @@
             <div class="flex flex-col sm:flex-row items-center gap-3">
                 <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
                     <i class="fa-solid fa-users-rectangle text-amber-400 text-base"></i>
-                    <span>إجمالي المجموعات : <strong id="totalGroupsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">8 مجموعات</strong></span>
+                    <span>إجمالي المجموعات : <strong id="totalGroupsCount" class="text-white bg-[#14291c] px-2 py-0.5 rounded border border-[#214731]">0 مجموعات</strong></span>
                 </div>
                 <div class="text-xs sm:text-sm font-semibold text-emerald-400 flex items-center gap-2">
                     <i class="fa-solid fa-user-graduate text-amber-400 text-base"></i>
@@ -296,8 +352,7 @@
                     "رايد يوسف العتيبي",
                     "فيصل عويض المطيري",
                     "فارس مشحن المطيري",
-                    "ريان مطلق زيد الشريف",
-                    "فيصل عويض المطيري"
+                    "ريان مطلق زيد الشريف"
                 ]
             },
             {
@@ -369,22 +424,22 @@
             }
         ];
 
-        // Accordion states
+        // Accordion states tracker
         const openStates = {};
 
-        // Toggle card open/close
+        // Toggle card open/close state
         function toggleGroup(id) {
             openStates[id] = !openStates[id];
             renderGroups(getFilteredData());
         }
 
-        // Get filtered array
+        // Get filtered data array based on search input
         function getFilteredData() {
             const query = document.getElementById("searchInput").value.toLowerCase().trim();
             if (!query) return groups;
             return groups.filter(g => {
                 const titleMatch = g.title.toLowerCase().includes(query);
-                const leaderMatch = g.leader.toLowerCase().includes(query);
+                const leaderMatch = g.leader ? g.leader.toLowerCase().includes(query) : false;
                 const memberMatch = g.members.some(m => m.toLowerCase().includes(query));
                 return titleMatch || leaderMatch || memberMatch;
             });
@@ -394,7 +449,7 @@
             renderGroups(getFilteredData());
         }
 
-        // Render Cards
+        // Render Cards dynamically
         function renderGroups(data) {
             const grid = document.getElementById("groupsGrid");
             grid.innerHTML = "";
@@ -489,11 +544,27 @@
             document.getElementById("totalStudentsCount").textContent = `${totalStudents} طالب`;
         }
 
+        let introDismissed = false;
+
+        function dismissIntro() {
+            if (introDismissed) return;
+            introDismissed = true;
+            const intro = document.getElementById("introScreen");
+            if (intro) {
+                intro.classList.add("is-hidden");
+            }
+        }
+
         // Initialize page on load
         window.onload = function() {
             updateTotals();
             renderGroups(groups);
             document.getElementById("copyrightYear").textContent = new Date().getFullYear();
+
+            // Auto-hide Intro Screen after 3.8 seconds
+            setTimeout(() => {
+                dismissIntro();
+            }, 3800);
         };
     </script>
 </body>
